@@ -1,0 +1,12 @@
+.vscode
+node_modules
+.env
+coverage
+coverage.json
+typechain-types
+deployments
+gas-report.txt
+
+#Hardhat files
+cache
+artifacts
