@@ -1,3 +1,5 @@
+Smart Contract Lottery
+
 # Getting Started
 
 ## Requirements
