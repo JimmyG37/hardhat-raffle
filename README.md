@@ -1,4 +1,7 @@
-Smart Contract Lottery
+# Smart Contract Lottery
+
+Hosted on Fleek:
+calm-glade-9526.on.fleek.co
 
 # Getting Started
 
