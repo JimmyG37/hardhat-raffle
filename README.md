@@ -1,21 +1,17 @@
 # Smart Contract Lottery
 
-Hosted on Fleek:
-calm-glade-9526.on.fleek.co
+[Front End](https://github.com/JimmyG37/nextjs-smartcontract-lottery)
 
 # Getting Started
 
 ## Requirements
 
 - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
+
 - [Nodejs](https://nodejs.org/en/)
-  - You'll know you've installed nodejs right if you can run:
-    - `node --version` and get an ouput like: `vx.x.x`
+
 - [Yarn](https://yarnpkg.com/getting-started/install) instead of `npm`
-  - You'll know you've installed yarn right if you can run:
-    - `yarn --version` and get an output like: `x.x.x`
-    - You might need to [install it with `npm`](https://classic.yarnpkg.com/lang/en/docs/install/) or `corepack`
+
 
 
 
@@ -43,32 +39,24 @@ yarn hardhat coverage
 
 1. Setup environment variabltes
 
-You'll want to set your `RINKEBY_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env`
+You'll want to set your `GOERLI_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env`
 
-- `PRIVATE_KEY`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
-  - You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
-- `RINKEBY_RPC_URL`: This is url of the rinkeby testnet node you're working with. You can get setup with one for free from [Alchemy](https://alchemy.com/?a=673c802981)
-
-1. Get testnet ETH
-
-Head over to [faucets.chain.link](https://faucets.chain.link/) and get some tesnet ETH & LINK. You should see the ETH and LINK show up in your metamask. [You can read more on setting up your wallet with LINK.](https://docs.chain.link/docs/deploy-your-first-contract/#install-and-fund-your-metamask-wallet)
+2. Get testnet ETH
 
 3. Setup a Chainlink VRF Subscription ID
 
 Head over to [vrf.chain.link](https://vrf.chain.link/) and setup a new subscription, and get a subscriptionId. You can reuse an old subscription if you already have one.
 
-[You can follow the instructions](https://docs.chain.link/docs/get-a-random-number/) if you get lost. You should leave this step with:
+- A subscription ID
+- Your subscription should be funded with LINK
+- Deploy
 
-1. A subscription ID
-2. Your subscription should be funded with LINK
+In your `helper-hardhat-config.js` add your `subscriptionId` under the section of the chainId you're using (if you're deploying goerli, add your `subscriptionId` in the `subscriptionId` field under the `5` section.)
 
-3. Deploy
-
-In your `helper-hardhat-config.js` add your `subscriptionId` under the section of the chainId you're using (aka, if you're deploying to rinkeby, add your `subscriptionId` in the `subscriptionId` field under the `4` section.)
 
 Then run:
 ```
-yarn hardhat deploy --network rinkeby
+yarn hardhat deploy --network goerli
 ```
 
 And copy / remember the contract address.
@@ -79,16 +67,16 @@ Go back to [vrf.chain.link](https://vrf.chain.link) and under your subscription 
 
 5. Register a Chainlink Keepers Upkeep
 
-[You can follow the documentation if you get lost.](https://docs.chain.link/docs/chainlink-keepers/compatible-contracts/)
-
 Go to [keepers.chain.link](https://keepers.chain.link/new) and register a new upkeep.
 
-1. Enter your raffle!
+Choose Custom logic as your trigger mechanism for automation.
+
+6. Enter your raffle!
 
 You're contract is now setup to be a tamper proof autonomous verifiably random lottery. Enter the lottery by running:
 
 ```
-yarn hardhat run scripts/enter.js --network rinkeby
+yarn hardhat run scripts/enter.js --network goerli
 ```
 
 ### Estimate gas cost in USD
