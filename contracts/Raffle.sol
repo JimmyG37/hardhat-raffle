@@ -1,9 +1,3 @@
-// Raffle
-// Enter the lottery (paying some amount)
-// Pick a random winner (verifiably random)
-// Winner to be selected every X minutes -> completly automated
-// Chainlink Oracle -> Randomness, Automated Execution (Chainlink Keepers)
-
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.7;
@@ -93,14 +87,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
      */
     function checkUpkeep(
         bytes memory /*checkData*/
-    )
-        public
-        override
-        returns (
-            bool upkeepNeeded,
-            bytes memory /* performData */
-        )
-    {
+    ) public view override returns (bool upkeepNeeded, bytes memory /* performData */) {
         bool isOpen = (RaffleState.OPEN == s_raffleState);
         bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
         bool hasPlayers = s_players.length > 0;
@@ -108,9 +95,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
         upkeepNeeded = (isOpen && timePassed && hasPlayers && hasBalance);
     }
 
-    function performUpkeep(
-        bytes calldata /* performData */
-    ) external override {
+    function performUpkeep(bytes calldata /* performData */) external override {
         (bool upkeepNeeded, ) = checkUpkeep("");
         if (!upkeepNeeded) {
             revert Raffle__UpkeepNotNeeded(
